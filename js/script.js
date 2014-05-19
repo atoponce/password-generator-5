@@ -4,12 +4,21 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
 
     $scope.generatedPassword = '';
     
-    var samples = [
-            'abcdefghijklmnopqrstuvwxyz'.split(''),
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
-            '+-*@#%=?!_;./'.split('')
-        ],
-        charCount = 14,
+    $scope.samples = [{
+            chars: 'abcdefghijklmnopqrstuvwxyz'.split(''),
+            isSet: true
+        },
+        {
+            chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
+            isSet: true
+        },
+        {
+            chars: '+-*@#%=?!_;./'.split(''),
+            isSet: true
+    }];
+    
+    var charCount = 14,
+        activeSamples = [0,1,2],
         pass = [], sample = '',
         choice, r, letter;
 
@@ -21,24 +30,48 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
     
     $scope.makePassword = function(){
         
-        $scope.rotation = 0;
+        pass = [];
         
-        for ( var i=0; i < charCount; i++ ){
+        $scope.rotation = 0;
+        activeSamples = [];
+        
+        // Count the active char sets that will be used in the pass
+        $scope.samples.forEach(function( item, i ){
+            
+            if ( item.isSet ) activeSamples.push( item.chars );
+        
+        });
+        
+        if ( activeSamples.length ) {
+        
+            // Build the password
+            for ( var i=0; i < charCount; i++ ){
 
-            choice = getRandomNumber( 0, 2 );
-            sample = samples[choice];
-            r = getRandomNumber( 0, sample.length - 1 );
-            letter = sample[r];
-            
-            console.log( letter, choice, r );
-            
-            pass.push( letter );
-            
-            $scope.rotation++;
+                // Get a random number to choose from the active char sets
+                choice = getRandomNumber( 0, activeSamples.length - 1 );
+
+                // Get the char set ab, AB or !@#$
+                sample = activeSamples[choice];
+                sample = sample;
+
+                // Get the random char from the set
+                r = getRandomNumber( 0, sample.length - 1 );
+                letter = sample[r];
+
+                pass.push( letter );
+            }
+
+            // Display repetition
+            $scope.rotation = i;
+
+            $scope.generatedPassword = pass.join('');
+        
+        } else {
+        
+            $scope.generatedPassword = 'Please choose a char set.';
             
         }
-        
-        $scope.generatedPassword = pass.join('');
+            
         
     };
     
