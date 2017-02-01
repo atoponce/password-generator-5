@@ -26,17 +26,21 @@
                             <input type="text" class="form-control" id="char-count" ng-model="charCount" ng-change="makePassword()">
                             </div>
                             <div class="form-group">
-                            <button class="btn btn-default"><label for="ab" class="checkbox-inline"><input type="checkbox" id="ab" ng-model="samples[0].isSet" ng-change="makePassword()">
-                                a-b </label></button>
+                                <button class="btn btn-default"><label for="ab" class="checkbox-inline"><input type="checkbox" id="ab" ng-model="samples[0].isSet" ng-change="makePassword()">
+                                    a-b </label></button>
                             </div>
                             <div class="form-group">
-                            <button class="btn btn-default"><label for="AB" class="checkbox-inline"><input type="checkbox" id="AB" ng-model="samples[1].isSet" ng-change="makePassword()">
-                                A-B</label></button>
+                                <button class="btn btn-default"><label for="AB" class="checkbox-inline"><input type="checkbox" id="AB" ng-model="samples[1].isSet" ng-change="makePassword()">
+                                    A-B</label></button>
                             </div>
                             <div class="form-group">
-                            <button class="btn btn-default"><label for="symbols" class="checkbox-inline"><input type="checkbox" id="symbols" ng-model="samples[2].isSet" ng-change="makePassword()">
-                                 +-*@#%=?!_;./</label></button>
-                            </div>                                 
+                                <button class="btn btn-default"><label for="symbols" class="checkbox-inline"><input type="checkbox" id="symbols" ng-model="samples[2].isSet" ng-change="makePassword()">
+                                     +-*@#%=?!_;./</label></button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-default"><label for="numbers" class="checkbox-inline"><input type="checkbox" id="numbers" ng-model="samples[3].isSet" ng-change="makePassword()">
+                                     0-9</label></button>
+                            </div>
                             <div class="form-group">
                             <button type="button" class="btn btn-default btn-md" ng-click="makePassword()">
                                 <span class="glyphicon glyphicon-refresh"></span> Regenerate
