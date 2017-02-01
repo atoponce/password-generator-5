@@ -5,7 +5,8 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
     $scope.generatedPassword = '';
     $scope.charCount = 14;
     
-    $scope.samples = [{
+    $scope.samples = [
+        {
             chars: 'abcdefghijklmnopqrstuvwxyz'.split(''),
             isSet: true
         },
@@ -16,9 +17,14 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
         {
             chars: '+-*@#%=?!_;./'.split(''),
             isSet: true
-    }];
+        },
+        {
+            chars: '123456789'.split(''),
+            isSet: true
+        }
+    ];
     
-    var activeSamples = [0,1,2],
+    var activeSamples = [0,1,2,3],
         pass = [], sample = '',
         choice, r, letter;
 
