@@ -28,10 +28,17 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
         pass = [], sample = '',
         choice, r, letter;
 
-    var getRandomNumber = function( min, max ){
-    
-        return Math.floor( Math.random() * (max - min + 1) ) + min;
-        
+    var getRandomNumber = function( length ){
+        const crypto = window.crypto || window.msCrypto;
+
+        let min = (-length >>> 0) % length;
+        let randNum = new Uint32Array(1);
+
+        do {
+            var x = crypto.getRandomValues(randNum);
+        } while (x < min)
+
+        return x % length; 
     };
     
     $scope.makePassword = function(){
@@ -53,14 +60,14 @@ pg.controller('MainCtrl', [ '$scope', function( $scope ){
             for ( var i=0; i < $scope.charCount; i++ ){
 
                 // Get a random number to choose from the active char sets
-                choice = getRandomNumber( 0, activeSamples.length - 1 );
+                choice = getRandomNumber( activeSamples.length );
 
                 // Get the char set ab, AB or !@#$
                 sample = activeSamples[choice];
                 sample = sample;
 
                 // Get the random char from the set
-                r = getRandomNumber( 0, sample.length - 1 );
+                r = getRandomNumber( sample.length );
                 letter = sample[r];
 
                 pass.push( letter );
